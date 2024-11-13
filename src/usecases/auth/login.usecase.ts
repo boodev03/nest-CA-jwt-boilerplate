@@ -1,19 +1,17 @@
 import { JwtConfig } from 'src/domain/config/jwt.interface';
-import { IBcryptService } from '../../domain/adapters/bcrypt.interface';
-import {
-  IJwtService,
-  IJwtServicePayload,
-} from '../../domain/adapters/jwt.interface';
+import { BcryptService } from 'src/infrastructure/services/bcrypt/bcrypt.service';
+import { JwtTokenService } from 'src/infrastructure/services/jwt/jwt.service';
+import { IJwtServicePayload } from '../../domain/adapters/jwt.interface';
 import { ILogger } from '../../domain/logger/logger.interface';
 import { UserRepository } from '../../domain/repositories/userRepository.interface';
 
 export class LoginUseCases {
   constructor(
     private readonly logger: ILogger,
-    private readonly jwtTokenService: IJwtService,
+    private readonly jwtTokenService: JwtTokenService,
     private readonly jwtConfig: JwtConfig,
     private readonly userRepository: UserRepository,
-    private readonly bcryptService: IBcryptService,
+    private readonly bcryptService: BcryptService,
   ) {}
 
   async getCookieWithJwtToken(username: string) {
